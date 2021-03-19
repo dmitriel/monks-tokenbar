@@ -1,4 +1,4 @@
-# Monk's TokenBar
+# Monk's TokenBar Lite
 
 Add-On Module for Foundry VTT
 
@@ -13,10 +13,7 @@ Simply use the install module screen within the FoundryVTT setup
 
 The player tokens currently in the scene are automatically added.  This is an easy way to make sure all players are represented.  Clicking on the token iteself will center the screen on that token.  Occasionaly I find that I lose track of where the players token is and this is an easy way to get to it quickly.
 
-Right click on the token in the TokenBar to open a context menu with options to edit both the character and token, aswell as targeting that token.  You can also set individual movement restrictions for that specific token.
-
-### Limit Movement
-This fork removes it. 
+Right click on the token in the TokenBar to open a context menu with options to edit both the character and token, aswell as targeting that token.
 
 ### Saving Throw Dialog
 ![monks-tokenbar](/screenshots/SavingThrowDialog.png)
