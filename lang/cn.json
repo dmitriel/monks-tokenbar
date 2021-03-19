@@ -10,13 +10,6 @@
 	"MonksTokenBar.hard": "困难",
 	"MonksTokenBar.epic": "史诗",
 
-	"MonksTokenBar.FreeMovement": "自由移动",
-	"MonksTokenBar.NoMovement": "禁止移动",
-	"MonksTokenBar.CombatTurn": "战斗回合",
-	"MonksTokenBar.Ignore": "忽略",
-
-	"MonksTokenBar.MovementChanged": "移动方式更改为 ",
-
 	"MonksTokenBar.RequestRoll": "请求掷骰",
 	"MonksTokenBar.ContestedRoll": "对抗掷骰",
 	"MonksTokenBar.AssignXP": "分配 XP",
@@ -37,8 +30,6 @@
 	"MonksTokenBar.Failed": "失败",
 	"MonksTokenBar.GrabMessage": "抓取掷骰消息",
 
-	"MonksTokenBar.CombatTurnMovementLimited": "移动方式已设为战斗回合，当前并非你的回合",
-	"MonksTokenBar.NormalMovementLimited": "移动已被锁定",
 	"MonksTokenBar.RequestNoneActorSelected": "没有选中角色，无法发送请求",
 	"MonksTokenBar.RequestNoneTokenSelected": "没有选中指示物，无法发送请求",
 	"MonksTokenBar.RequestActorMissing": "找不到角色，无法发送请求",
@@ -70,8 +61,6 @@
 	"MonksTokenBar.stat2-icon.hint": "修改属性值 2 显示的图标",
 	"MonksTokenBar.stat2-resource.name": "属性值 2 资源",
 	"MonksTokenBar.stat2-resource.hint": "修改属性值 2 显示的资源",
-	"MonksTokenBar.movement-after-combat.name": "在战斗后设置移动方式",
-	"MonksTokenBar.movement-after-combat.hint": "战斗结束时，选择一种移动方式用于还原",
 	"MonksTokenBar.change-to-combat.name": "在战斗时改变移动方式",
 	"MonksTokenBar.change-to-combat.hint": "战斗开始时，将移动方式修改为战斗回合",
 	"MonksTokenBar.assign-loot.name": "将敌人转换为战利品",
