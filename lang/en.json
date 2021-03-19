@@ -10,13 +10,6 @@
 	"MonksTokenBar.hard": "Hard",
 	"MonksTokenBar.epic": "Epic",
 
-	"MonksTokenBar.FreeMovement": "Free Movement",
-	"MonksTokenBar.NoMovement": "No Movement",
-	"MonksTokenBar.CombatTurn": "Combat Turn",
-	"MonksTokenBar.Ignore": "Ignore",
-
-	"MonksTokenBar.MovementChanged": "Movement changed to ",
-
 	"MonksTokenBar.RequestRoll": "Request Roll",
 	"MonksTokenBar.ContestedRoll": "Contested Roll",
 	"MonksTokenBar.AssignXP": "Assign XP",
@@ -37,8 +30,6 @@
 	"MonksTokenBar.Failed": "Failed",
 	"MonksTokenBar.GrabMessage": "Grab Message Roll",
 
-	"MonksTokenBar.CombatTurnMovementLimited": "Movement is set to combat turn, it's currently not your turn",
-	"MonksTokenBar.NormalMovementLimited": "Movement is currently locked",
 	"MonksTokenBar.RequestNoneActorSelected": "Cannot send request if no actors selected",
 	"MonksTokenBar.RequestNoneTokenSelected": "Cannot send request if no tokens selected",
 	"MonksTokenBar.RequestActorMissing": "Cannot send request if either actor is missing",
@@ -46,8 +37,6 @@
 	"MonksTokenBar.ActorNoRollFunction": ": Could not find function to roll",
 	"MonksTokenBar.ActorNoTool": ": Does not have that tool",
 
-	"MonksTokenBar.notify-on-change.name": "Notify on Movement Change",
-	"MonksTokenBar.notify-on-change.hint": "Send a notification to all players when the GM changes the allowable movement",
 	"MonksTokenBar.show-xp-dialog.name": "Show XP Dialog",
 	"MonksTokenBar.show-xp-dialog.hint": "Show the XP Dialog automatically after you complete an encounter",
 	"MonksTokenBar.divide-xp.name": "Divide XP among player",
@@ -70,10 +59,6 @@
 	"MonksTokenBar.stat2-icon.hint": "Change the icon to display for the second stat.",
 	"MonksTokenBar.stat2-resource.name": "Stat2 Resource",
 	"MonksTokenBar.stat2-resource.hint": "Change the resource displayed by the second stat",
-	"MonksTokenBar.movement-after-combat.name": "Set movement after combat",
-	"MonksTokenBar.movement-after-combat.hint": "When combat ends, select what movement type to set it back to",
-	"MonksTokenBar.change-to-combat.name": "Change movement to combat",
-	"MonksTokenBar.change-to-combat.hint": "Change movement to combat when combat starts",
 	"MonksTokenBar.assign-loot.name": "Convert enemies to lootable",
 	"MonksTokenBar.assign-loot.hint": "Only works with the Loot Sheet module, but once the combat is over, convert the fallen enemies to lootable",
 	"MonksTokenBar.popout-tokenbar.name": "Popout TokenBar",
