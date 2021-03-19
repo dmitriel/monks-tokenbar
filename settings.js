@@ -9,13 +9,6 @@ export const registerSettings = function () {
 		'actor': game.i18n.localize("MonksTokenBar.token-pictures.actor"),
 	};
 
-	let movementoptions = {
-		'free': game.i18n.localize("MonksTokenBar.FreeMovement"),
-		'none': game.i18n.localize("MonksTokenBar.NoMovement"),
-		'combat': game.i18n.localize("MonksTokenBar.CombatTurn"),
-		'ignore': game.i18n.localize("MonksTokenBar.Ignore"),
-	};
-
 	let iconoptions = {
 		"fa-500px": "\f26e",
 		"fa-accessible-icon": "\f368",
@@ -1557,15 +1550,6 @@ export const registerSettings = function () {
 		default: true,
 		type: Boolean
 	});
-	game.settings.register(modulename, "movement-after-combat", {
-		name: game.i18n.localize("MonksTokenBar.movement-after-combat.name"),
-		hint: game.i18n.localize("MonksTokenBar.movement-after-combat.hint"),
-		scope: "world",
-		config: true,
-		default: "free",
-		type: String,
-		choices: movementoptions,
-	});
 	game.settings.register(modulename, "assign-loot", {
 		name: game.i18n.localize("MonksTokenBar.assign-loot.name"),
 		hint: game.i18n.localize("MonksTokenBar.assign-loot.hint"),
@@ -1678,13 +1662,4 @@ export const registerSettings = function () {
 			log('Reset position');
 		}
 	});
-	
-	//this is just a global setting for movement mode
-	game.settings.register(modulename, "movement", {
-		scope: "world",
-		config: false,
-		default: "free",
-		type: String,
-	});
-
 };
