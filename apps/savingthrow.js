@@ -13,7 +13,7 @@ export class SavingThrowApp extends Application {
                 return t.actor != undefined && t.actor?.hasPlayerOwner && t.actor?.data.type != 'npc';
             });
         }
-        this.rollmode = (options?.rollmode || game.user.getFlag("monks-tokenbar", "lastmodeST") || 'roll');
+        this.rollmode = (options?.rollmode || game.user.getFlag("monks-tokenbar-lite", "lastmodeST") || 'roll');
         this.request = options.request;
         this.baseoptions = this.requestoptions = (options.requestoptions || MonksTokenBar.requestoptions);
         this.dc = options.dc;
@@ -23,7 +23,7 @@ export class SavingThrowApp extends Application {
         return mergeObject(super.defaultOptions, {
             id: "requestsavingthrow",
             title: i18n("MonksTokenBar.RequestRoll"),
-            template: "./modules/monks-tokenbar/templates/savingthrow.html",
+            template: "./modules/monks-tokenbar-lite/templates/savingthrow.html",
             width: 400,
             height: 400,
             popOut: true
@@ -136,7 +136,7 @@ export class SavingThrowApp extends Application {
             let requesttype = (parts.length > 1 ? parts[0] : '');
             let request = (parts.length > 1 ? parts[1] : parts[0]);
             let rollmode = this.rollmode;
-            game.user.setFlag("monks-tokenbar", "lastmodeST", rollmode);
+            game.user.setFlag("monks-tokenbar-lite", "lastmodeST", rollmode);
             let modename = (rollmode == 'roll' ? i18n("MonksTokenBar.PublicRoll") : (rollmode == 'gmroll' ? i18n("MonksTokenBar.PrivateGMRoll") : (rollmode == 'blindroll' ? i18n("MonksTokenBar.BlindGMRoll") : i18n("MonksTokenBar.SelfRoll"))));
 
             let name = MonksTokenBar.getRequestName(this.requestoptions, requesttype, request);
@@ -151,7 +151,7 @@ export class SavingThrowApp extends Application {
                 tokens: tokens,
                 canGrab: game.system.id == 'dnd5e'
             };
-            const html = await renderTemplate("./modules/monks-tokenbar/templates/svgthrowchatmsg.html", requestdata);
+            const html = await renderTemplate("./modules/monks-tokenbar-lite/templates/svgthrowchatmsg.html", requestdata);
             delete requestdata.tokens;
             delete requestdata.canGrab;
             for (let i = 0; i < tokens.length; i++)
@@ -178,11 +178,11 @@ export class SavingThrowApp extends Application {
                     }
                 }
             }
-            //chatData.flags["monks-tokenbar"] = {"testmsg":"testing"};
-            setProperty(chatData, "flags.monks-tokenbar", requestdata);
+            //chatData.flags["monks-tokenbar-lite"] = {"testmsg":"testing"};
+            setProperty(chatData, "flags.monks-tokenbar-lite", requestdata);
             ChatMessage.create(chatData, {});
             if (setting('request-roll-sound'))
-                AudioHelper.play({ src: 'modules/monks-tokenbar/sounds/RollRequestAlert.mp3' }, true);
+                AudioHelper.play({ src: 'modules/monks-tokenbar-lite/sounds/RollRequestAlert.mp3' }, true);
             this.close();
         } else
             ui.notifications.warn(i18n("MonksTokenBar.RequestNoneTokenSelected"));
@@ -451,11 +451,11 @@ export class SavingThrow {
         if (!$.isArray(ids))
             ids = [ids];
 
-        let flags = message.data.flags['monks-tokenbar'];
+        let flags = message.data.flags['monks-tokenbar-lite'];
 
-        let request = message.getFlag('monks-tokenbar', 'request');
-        let requesttype = message.getFlag('monks-tokenbar', 'requesttype');
-        let rollmode = message.getFlag('monks-tokenbar', 'rollmode');
+        let request = message.getFlag('monks-tokenbar-lite', 'request');
+        let requesttype = message.getFlag('monks-tokenbar-lite', 'requesttype');
+        let rollmode = message.getFlag('monks-tokenbar-lite', 'rollmode');
 
         let promises = [];
         for (let id of ids) {
@@ -502,7 +502,7 @@ export class SavingThrow {
     static async updateMessage(updates, message, reveal = true) {
         if (updates == undefined) return;
 
-        let dc = message.getFlag('monks-tokenbar', 'dc');
+        let dc = message.getFlag('monks-tokenbar-lite', 'dc');
         let content = $(message.data.content);
 
         let flags = {};
@@ -511,7 +511,7 @@ export class SavingThrow {
 
         for (let update of updates) {
             if (update != undefined) {
-                let msgtoken = duplicate(message.getFlag('monks-tokenbar', 'token' + update.id));
+                let msgtoken = duplicate(message.getFlag('monks-tokenbar-lite', 'token' + update.id));
                 log('updating actor', msgtoken, update.roll);
 
                 if (update.roll) {
@@ -543,7 +543,7 @@ export class SavingThrow {
                         <div class="dice-text player-only"></div>
                     </div >`);
                     flags["token" + update.id] = msgtoken;
-                    //await message.setFlag('monks-tokenbar', 'token' + update.id, msgtoken);
+                    //await message.setFlag('monks-tokenbar-lite', 'token' + update.id, msgtoken);
                 }
 
                 if (update.finish != undefined)
@@ -551,7 +551,7 @@ export class SavingThrow {
             }
         }
 
-        message.update({ content: content[0].outerHTML, flags: { 'monks-tokenbar': flags } });
+        message.update({ content: content[0].outerHTML, flags: { 'monks-tokenbar-lite': flags } });
 
         if (promises.length) {
             Promise.all(promises).then(response => {
@@ -581,21 +581,21 @@ export class SavingThrow {
         } else {
             let flags = {};
             for (let update of updates) {
-                let msgtoken = duplicate(message.getFlag('monks-tokenbar', 'token' + update.id));
+                let msgtoken = duplicate(message.getFlag('monks-tokenbar-lite', 'token' + update.id));
                 msgtoken.reveal = true;
                 flags["token" + update.id] = msgtoken;
                 log("Finish Rolling", msgtoken);
             }
-            message.update({ flags: { 'monks-tokenbar': flags } });
+            message.update({ flags: { 'monks-tokenbar-lite': flags } });
         }
     }
 
     /*
     static async updateSavingRoll(actorid, message, roll, reveal = true) {
-        let dc = message.getFlag('monks-tokenbar', 'dc');
+        let dc = message.getFlag('monks-tokenbar-lite', 'dc');
 
-        //let actors = JSON.parse(JSON.stringify(message.getFlag('monks-tokenbar', 'actors')));
-        let msgactor = duplicate(message.getFlag('monks-tokenbar', 'actor' + actorid)); //actors.find(a => { return a.id == actorid; });
+        //let actors = JSON.parse(JSON.stringify(message.getFlag('monks-tokenbar-lite', 'actors')));
+        let msgactor = duplicate(message.getFlag('monks-tokenbar-lite', 'actor' + actorid)); //actors.find(a => { return a.id == actorid; });
         log('updating actor', msgactor, roll);
 
         msgactor.roll = roll.toJSON();
@@ -631,12 +631,12 @@ export class SavingThrow {
         message.update({ content: content[0].outerHTML });
         delete SavingThrow.msgcontent[message.id];
 
-        await message.setFlag('monks-tokenbar', 'actor' + actorid, msgactor); //message.setFlag('monks-tokenbar', 'actors', actors);
+        await message.setFlag('monks-tokenbar-lite', 'actor' + actorid, msgactor); //message.setFlag('monks-tokenbar-lite', 'actors', actors);
     }*/
 
     static async onRollAll(tokentype, message, e) {
         if (game.user.isGM) {
-            let flags = message.data.flags['monks-tokenbar'];
+            let flags = message.data.flags['monks-tokenbar-lite'];
             let tokens = Object.keys(flags)
                 .filter(key => key.startsWith('token'))
                 .map(key => flags[key]);
@@ -663,15 +663,15 @@ export class SavingThrow {
     }
 
     static async setRollSuccess(tokenid, message, success) {
-        //let actors = JSON.parse(JSON.stringify(message.getFlag('monks-tokenbar', 'actors')));
-        let msgtoken = duplicate(message.getFlag('monks-tokenbar', 'token' + tokenid)); //actors.find(a => { return a.id == actorid; });
+        //let actors = JSON.parse(JSON.stringify(message.getFlag('monks-tokenbar-lite', 'actors')));
+        let msgtoken = duplicate(message.getFlag('monks-tokenbar-lite', 'token' + tokenid)); //actors.find(a => { return a.id == actorid; });
 
         if (msgtoken.passed === success)
             delete msgtoken.passed;
         else
             msgtoken.passed = success;
 
-        await message.setFlag('monks-tokenbar', 'token' + tokenid, msgtoken);
+        await message.setFlag('monks-tokenbar-lite', 'token' + tokenid, msgtoken);
     }
 
     static async _onClickToken(tokenId, event) {
@@ -721,7 +721,7 @@ Hooks.on("renderSavingThrowApp", (app, html) => {
 });
 
 Hooks.on("renderChatMessage", (message, html, data) => {
-    const svgCard = html.find(".monks-tokenbar.savingthrow");
+    const svgCard = html.find(".monks-tokenbar-lite.savingthrow");
     if (svgCard.length !== 0) {
         log('Rendering chat message', message);
         if (!game.user.isGM)
@@ -729,13 +729,13 @@ Hooks.on("renderChatMessage", (message, html, data) => {
         if (game.user.isGM)
             html.find(".player-only").remove();
 
-        let dc = message.getFlag('monks-tokenbar', 'dc');
-        let rollmode = message.getFlag('monks-tokenbar', 'rollmode');
+        let dc = message.getFlag('monks-tokenbar-lite', 'dc');
+        let rollmode = message.getFlag('monks-tokenbar-lite', 'rollmode');
 
         $('.roll-all', html).click($.proxy(SavingThrow.onRollAll, SavingThrow, 'all', message));
         $('.roll-npc', html).click($.proxy(SavingThrow.onRollAll, SavingThrow, 'npc', message));
 
-        //let actors = message.getFlag('monks-tokenbar', 'actors');
+        //let actors = message.getFlag('monks-tokenbar-lite', 'actors');
 
         let items = $('.item', html);
         let count = 0;
@@ -743,7 +743,7 @@ Hooks.on("renderChatMessage", (message, html, data) => {
         for (let i = 0; i < items.length; i++) {
             var item = items[i];
             let tokenId = $(item).attr('data-item-id');
-            let msgtoken = message.getFlag('monks-tokenbar', 'token' + tokenId);//actors.find(a => { return a.id == actorId; });
+            let msgtoken = message.getFlag('monks-tokenbar-lite', 'token' + tokenId);//actors.find(a => { return a.id == actorId; });
             if (msgtoken) {
                 let actor = game.actors.get(msgtoken.actorid);
 
