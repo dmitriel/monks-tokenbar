@@ -41,7 +41,7 @@ export class TokenBar extends Application {
 	static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
         id: "tokenbar-window",
-        template: "./modules/monks-tokenbar/templates/tokenbar.html",
+        template: "./modules/monks-tokenbar-lite/templates/tokenbar.html",
         popOut: setting('popout-tokenbar')
     });
     }
@@ -69,13 +69,13 @@ export class TokenBar extends Application {
     //}
 
     getPos() {
-        this.pos = game.user.getFlag("monks-tokenbar", "position");
+        this.pos = game.user.getFlag("monks-tokenbar-lite", "position");
 
         if (this.pos == undefined) {
             let hbpos = $('#hotbar').position();
             let width = $('#hotbar').width();
             this.pos = { left: hbpos.left + width + 4, right: '', top: '', bottom: 10 };
-            game.user.setFlag("monks-tokenbar", "position", this.pos);
+            game.user.setFlag("monks-tokenbar-lite", "position", this.pos);
         }
 
         let result = '';
@@ -91,13 +91,13 @@ export class TokenBar extends Application {
     }
 
     setPos() {
-        this.pos = game.user.getFlag("monks-tokenbar", "position");
+        this.pos = game.user.getFlag("monks-tokenbar-lite", "position");
 
         if (this.pos == undefined) {
             let hbpos = $('#hotbar').position();
             let width = $('#hotbar').width();
             this.pos = { left: hbpos.left + width + 4, right: '', top: '', bottom: 10 };
-            game.user.setFlag("monks-tokenbar", "position", this.pos);
+            game.user.setFlag("monks-tokenbar-lite", "position", this.pos);
         }
 
         log('Setting position', this.pos, this.element);
@@ -142,10 +142,10 @@ export class TokenBar extends Application {
         let stat1 = TokenBar.processStat(setting("stat1-resource"), actor.data.data);
         let stat2 = TokenBar.processStat(setting("stat2-resource"), actor.data.data);
 
-        token.unsetFlag("monks-tokenbar", "notified");
+        token.unsetFlag("monks-tokenbar-lite", "notified");
 
         let resources = [{}, {}];
-        if (game.settings.get("monks-tokenbar", "show-resource-bars")) {
+        if (game.settings.get("monks-tokenbar-lite", "show-resource-bars")) {
             resources[0] = this.getResourceBar(token, "bar1");
             resources[1] = this.getResourceBar(token, "bar2");
         }
@@ -387,8 +387,8 @@ export class TokenBar extends Application {
 
                             //$(elmnt).css({ bottom: (position.bottom || ''), top: (position.top || ''), left: (position.left || ''), right: (position.right || '') });
 
-                            log(`Setting monks-tokenbar position:`, position);
-                            game.user.setFlag('monks-tokenbar', 'position', position);
+                            log(`Setting monks-tokenbar-lite position:`, position);
+                            game.user.setFlag('monks-tokenbar-lite', 'position', position);
                             this.pos = position;
                         }
                     }
@@ -565,7 +565,7 @@ export class TokenBar extends Application {
         MonksTokenBar.tokenbar.setPosition();
     }*/
     //MonksTokenBar.tokenbar._getTokensByScene();
-    //let gMovement = game.settings.get("monks-tokenbar", "movement");
+    //let gMovement = game.settings.get("monks-tokenbar-lite", "movement");
     //$('.token-movement[data-movement="' + gMovement + '"]', html).addClass('active');
 
     //does the scene have an active combat
@@ -575,7 +575,7 @@ export class TokenBar extends Application {
 
     //$('.token-movement[data-movement="combat"]', html).toggleClass('disabled', combats.length == 0);
     /*$(app.tokens).each(function () {
-        let tMovement = this.token.getFlag("monks-tokenbar", "movement");
+        let tMovement = this.token.getFlag("monks-tokenbar-lite", "movement");
         if (tMovement != undefined && tMovement != gMovement) {
             $('.token[data-token-id="' + this.id + '"] .movement-icon', html).attr('movement', tMovement);
         }
@@ -591,7 +591,7 @@ export class TokenBar extends Application {
 //});
 
 Hooks.on('updateToken', (scene, token, data) => {
-    if (game.user.isGM && MonksTokenBar.tokenbar != undefined) { //&& game.settings.get("monks-tokenbar", "show-resource-bars")
+    if (game.user.isGM && MonksTokenBar.tokenbar != undefined) { //&& game.settings.get("monks-tokenbar-lite", "show-resource-bars")
         let tkn = MonksTokenBar.tokenbar.tokens.find(t => t.token.id == token._id);
         if (tkn != undefined) { // && (data.bar1 != undefined || data.bar2 != undefined)) {
             MonksTokenBar.tokenbar.updateToken(tkn)
@@ -600,7 +600,7 @@ Hooks.on('updateToken', (scene, token, data) => {
 });
 
 Hooks.on('updateOwnedItem', (actor, item, data) => {
-    if (game.user.isGM && MonksTokenBar.tokenbar != undefined) { //&& game.settings.get("monks-tokenbar", "show-resource-bars")
+    if (game.user.isGM && MonksTokenBar.tokenbar != undefined) { //&& game.settings.get("monks-tokenbar-lite", "show-resource-bars")
         let tkn = MonksTokenBar.tokenbar.tokens.find(t => t.token.actor.id == actor._id);
         if (tkn != undefined) { // && (data.bar1 != undefined || data.bar2 != undefined)) {
             setTimeout(function () { MonksTokenBar.tokenbar.updateToken(tkn); }, 100); //delay slightly so the PF2E condition can be rendered properly.
