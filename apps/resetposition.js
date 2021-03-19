@@ -9,7 +9,7 @@ export class ResetPosition extends FormApplication {
         const options = super.defaultOptions;
         options.title = '';
         options.id = 'tokenbar-resetposition';
-        options.template = 'modules/monks-tokenbar/templates/resetposition.html';
+        options.template = 'modules/monks-tokenbar-lite/templates/resetposition.html';
         options.closeOnSubmit = true;
         options.popOut = true;
         options.width = 1;
@@ -18,7 +18,7 @@ export class ResetPosition extends FormApplication {
     }
 
     static async resetPosition(app) {
-        await game.user.unsetFlag("monks-tokenbar", "position");
+        await game.user.unsetFlag("monks-tokenbar-lite", "position");
         if (MonksTokenBar.tokenbar != undefined)
             MonksTokenBar.tokenbar.render(true); //MonksTokenBar.tokenbar.setPos();
         app.close({ force: true });
