@@ -61,8 +61,6 @@
 	"MonksTokenBar.stat2-icon.hint": "二つめの情報に表示するアイコンを設定します。",
 	"MonksTokenBar.stat2-resource.name": "情報2のリソース",
 	"MonksTokenBar.stat2-resource.hint": "二つめの情報として表示する属性値を設定します。",
-	"MonksTokenBar.change-to-combat.name": "戦闘中の移動モード",
-	"MonksTokenBar.change-to-combat.hint": "戦闘が開始したときに、移動モードを“戦闘ターン”に変更します。",
 	"MonksTokenBar.assign-loot.name": "敵を戦利品に変換する",
 	"MonksTokenBar.assign-loot.hint": "戦闘終了時に、倒した敵のシートを戦利品に変換します。「Loot Sheet」モジュールが必要です。",
 	"MonksTokenBar.popout-tokenbar.name": "トークンバーのポップアウト",
