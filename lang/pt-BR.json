@@ -10,13 +10,6 @@
 	"MonksTokenBar.hard": "Hard",
 	"MonksTokenBar.epic": "Epic",
 
-	"MonksTokenBar.FreeMovement": "Movimento Livre",
-	"MonksTokenBar.NoMovement": "Sem Movimento",
-	"MonksTokenBar.CombatTurn": "Turno de Combate",
-	"MonksTokenBar.Ignore": "Ignorar",
-
-	"MonksTokenBar.MovementChanged": "Movimento mudado para ",
-
 	"MonksTokenBar.RequestRoll": "Pedir Rolagem",
 	"MonksTokenBar.ContestedRoll": "Rolagem Contestada",
 	"MonksTokenBar.AssignXP": "Distribuir XP",
@@ -37,8 +30,6 @@
 	"MonksTokenBar.Failed": "Falhou",
 	"MonksTokenBar.GrabMessage": "Grab Message Roll",
 
-	"MonksTokenBar.CombatTurnMovementLimited": "Movimento está definido para turno de combate, ainda não é o seu turno",
-	"MonksTokenBar.NormalMovementLimited": "Movimento está atualmente travado",
 	"MonksTokenBar.RequestNoneActorSelected": "Não dá para enviar pedido sem atores selecionados",
 	"MonksTokenBar.RequestNoneTokenSelected": "Não dá para enviar pedido sem tokens selecionados",
 	"MonksTokenBar.RequestActorMissing": "Não é possível enviar pedido se qualquer ator estiver faltando",
@@ -70,8 +61,6 @@
 	"MonksTokenBar.stat2-icon.hint": "Muda o ícone do segundo atributo.",
 	"MonksTokenBar.stat2-resource.name": "Recurso do Segundo Atributo",
 	"MonksTokenBar.stat2-resource.hint": "Muda o segundo recurso mostrado",
-	"MonksTokenBar.movement-after-combat.name": "Definir movimento após o combate",
-	"MonksTokenBar.movement-after-combat.hint": "Quando o combate acaba, seleciona que tipo de movimento será definido.",
 	"MonksTokenBar.change-to-combat.name": "Mudar movimento para combate",
 	"MonksTokenBar.change-to-combat.hint": "Muda o movimento para combate quando o combate começa",
 	"MonksTokenBar.assign-loot.name": "Converter inimigos em pilháveis",
