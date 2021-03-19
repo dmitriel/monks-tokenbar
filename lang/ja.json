@@ -10,13 +10,6 @@
 	"MonksTokenBar.hard": "死地",
 	"MonksTokenBar.epic": "英雄的",
 
-	"MonksTokenBar.FreeMovement": "移動フリー",
-	"MonksTokenBar.NoMovement": "移動制限",
-	"MonksTokenBar.CombatTurn": "戦闘ターン",
-	"MonksTokenBar.Ignore": "なにもしない",
-
-	"MonksTokenBar.MovementChanged": "移動モードを変更しました：",
-
 	"MonksTokenBar.RequestRoll": "判定リクエスト",
 	"MonksTokenBar.ContestedRoll": "対抗判定",
 	"MonksTokenBar.AssignXP": "経験値分配",
@@ -37,8 +30,6 @@
 	"MonksTokenBar.Failed": "失敗",
 	"MonksTokenBar.GrabMessage": "個別のロールを取り込む",
 
-	"MonksTokenBar.CombatTurnMovementLimited": "今はあなたのターンではありません。",
-	"MonksTokenBar.NormalMovementLimited": "現在、GMによって移動が制限されています。",
 	"MonksTokenBar.RequestNoneActorSelected": "選択されたアクターがない場合、リクエストを送信できません。",
 	"MonksTokenBar.RequestNoneTokenSelected": "選択されたコマがない場合、リクエストを送信できません。",
 	"MonksTokenBar.RequestActorMissing": "いずれかのアクターが欠けている場合、リクエストを送信できません。",
@@ -70,8 +61,6 @@
 	"MonksTokenBar.stat2-icon.hint": "二つめの情報に表示するアイコンを設定します。",
 	"MonksTokenBar.stat2-resource.name": "情報2のリソース",
 	"MonksTokenBar.stat2-resource.hint": "二つめの情報として表示する属性値を設定します。",
-	"MonksTokenBar.movement-after-combat.name": "戦闘後の移動モード",
-	"MonksTokenBar.movement-after-combat.hint": "戦闘終了時に、移動モードをどのタイプに戻すかを設定します。",
 	"MonksTokenBar.change-to-combat.name": "戦闘中の移動モード",
 	"MonksTokenBar.change-to-combat.hint": "戦闘が開始したときに、移動モードを“戦闘ターン”に変更します。",
 	"MonksTokenBar.assign-loot.name": "敵を戦利品に変換する",
