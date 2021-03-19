@@ -10,7 +10,7 @@ export class ContestedRollApp extends Application {
         this.item1.token = (this.item1.token || (game.user.targets.values()?.next()?.value || (canvas.tokens.controlled.length > 1 ? canvas.tokens.controlled[1] : null)));
         this.item1.request = (this.item1.request || 'ability:str');
 
-        this.rollmode = options?.rollmode || (game.user.getFlag("monks-tokenbar", "lastmodeCR") || 'roll');
+        this.rollmode = options?.rollmode || (game.user.getFlag("monks-tokenbar-lite", "lastmodeCR") || 'roll');
         this.requestoptions = (options.requestoptions || MonksTokenBar.requestoptions.filter(o => { return o.id != 'save' && o.groups != undefined }));
     }
 
@@ -18,7 +18,7 @@ export class ContestedRollApp extends Application {
         return mergeObject(super.defaultOptions, {
             id: "contestedroll",
             title: i18n("MonksTokenBar.ContestedRoll"),
-            template: "./modules/monks-tokenbar/templates/contestedroll.html",
+            template: "./modules/monks-tokenbar-lite/templates/contestedroll.html",
             width: 400,
             height: 250,
             popOut: true
@@ -61,14 +61,14 @@ export class ContestedRollApp extends Application {
             });
 
             let rollmode = this.rollmode; //$('#contestedroll-rollmode', this.element).val();
-            game.user.setFlag("monks-tokenbar", "lastmodeCR", rollmode);
+            game.user.setFlag("monks-tokenbar-lite", "lastmodeCR", rollmode);
             let modename = (rollmode == 'roll' ? i18n("MonksTokenBar.PublicRoll") : (rollmode == 'gmroll' ? i18n("MonksTokenBar.PrivateGMRoll") : (rollmode == 'blindroll' ? i18n("MonksTokenBar.BlindGMRoll") : i18n("MonksTokenBar.SelfRoll"))));
             let requestdata = {
                 rollmode: rollmode,
                 modename: modename,
                 actors: actors
             };
-            const html = await renderTemplate("./modules/monks-tokenbar/templates/contestedrollchatmsg.html", requestdata);
+            const html = await renderTemplate("./modules/monks-tokenbar-lite/templates/contestedrollchatmsg.html", requestdata);
 
             log('create chat request');
             let chatData = {
@@ -90,11 +90,11 @@ export class ContestedRollApp extends Application {
                     }
                 }
             }
-            //chatData.flags["monks-tokenbar"] = {"testmsg":"testing"};
-            setProperty(chatData, "flags.monks-tokenbar", requestdata);
+            //chatData.flags["monks-tokenbar-lite"] = {"testmsg":"testing"};
+            setProperty(chatData, "flags.monks-tokenbar-lite", requestdata);
             ChatMessage.create(chatData, {});
             if (setting('request-roll-sound'))
-                AudioHelper.play({ src: 'modules/monks-tokenbar/sounds/RollRequestAlert.mp3' }, true);
+                AudioHelper.play({ src: 'modules/monks-tokenbar-lite/sounds/RollRequestAlert.mp3' }, true);
             this.close();
         } else
             ui.notifications.warn(i18n("MonksTokenBar.RequestActorMissing"));
@@ -124,7 +124,7 @@ export class ContestedRoll {
 
         let returnRoll = async function(roll) {
             log("Roll", roll, actor);
-            let rollmode = message.getFlag('monks-tokenbar', 'rollmode');
+            let rollmode = message.getFlag('monks-tokenbar-lite', 'rollmode');
 
             if (!game.user.isGM) {
                 game.socket.emit(
@@ -157,7 +157,7 @@ export class ContestedRoll {
         }
 
         if (actor != undefined) {
-            let actors = message.getFlag('monks-tokenbar', 'actors');
+            let actors = message.getFlag('monks-tokenbar-lite', 'actors');
             let msgactor = actors.find(a => { return a.id == actorid; });
             if (msgactor != undefined && msgactor.roll == undefined) {
                 let request = msgactor.request;
@@ -276,11 +276,11 @@ export class ContestedRoll {
                 }
             );
         } else {
-            let actors = duplicate(message.getFlag('monks-tokenbar', 'actors'));
+            let actors = duplicate(message.getFlag('monks-tokenbar-lite', 'actors'));
             let msgactor = actors.find(a => { return a.id == actorid; });
             log('finishing roll', msgactor);
             msgactor.reveal = true;
-            message.setFlag('monks-tokenbar', 'actors', actors);
+            message.setFlag('monks-tokenbar-lite', 'actors', actors);
         }
     }
 
@@ -288,7 +288,7 @@ export class ContestedRoll {
         let actorid = responses[0].actorid;
         let roll = responses[0].roll;
 
-        let actors = duplicate(message.getFlag('monks-tokenbar', 'actors'));
+        let actors = duplicate(message.getFlag('monks-tokenbar-lite', 'actors'));
         let msgactor = actors.find(a => { return a.id == actorid; });
         log('updating contested roll', msgactor, roll);
 
@@ -312,7 +312,7 @@ export class ContestedRoll {
             </div >`);
 
         message.update({ content: content[0].outerHTML });
-        await message.setFlag('monks-tokenbar', 'actors', actors);
+        await message.setFlag('monks-tokenbar-lite', 'actors', actors);
     }
 
     static async checkResult(actors) {
@@ -326,12 +326,12 @@ export class ContestedRoll {
     }
 
     static async setRollSuccess(actorid, message, success) {
-        let actors = duplicate(message.getFlag('monks-tokenbar', 'actors'));
+        let actors = duplicate(message.getFlag('monks-tokenbar-lite', 'actors'));
         actors[0].passed = actors[1].passed = 'failed';
         let msgactor = actors.find(a => { return a.id == actorid; });
         msgactor.passed = 'won';
 
-        await message.setFlag('monks-tokenbar', 'actors', actors);
+        await message.setFlag('monks-tokenbar-lite', 'actors', actors);
     }
 
     static async _onClickToken(tokenId, event) {
@@ -363,7 +363,7 @@ Hooks.on("renderContestedRollApp", (app, html) => {
 });
 
 Hooks.on("renderChatMessage", (message, html, data) => {
-    const svgCard = html.find(".monks-tokenbar.contested-roll");
+    const svgCard = html.find(".monks-tokenbar-lite.contested-roll");
     if (svgCard.length !== 0) {
 
         if (!game.user.isGM)
@@ -371,10 +371,10 @@ Hooks.on("renderChatMessage", (message, html, data) => {
         if (game.user.isGM)
             html.find(".player-only").remove();
 
-        let dc = message.getFlag('monks-tokenbar', 'dc');
-        let rollmode = message.getFlag('monks-tokenbar', 'rollmode');
+        let dc = message.getFlag('monks-tokenbar-lite', 'dc');
+        let rollmode = message.getFlag('monks-tokenbar-lite', 'rollmode');
 
-        let actors = message.getFlag('monks-tokenbar', 'actors');
+        let actors = message.getFlag('monks-tokenbar-lite', 'actors');
         let revealAll = (actors[0].reveal && actors[1].reveal);
 
         let items = $('.item', html);
