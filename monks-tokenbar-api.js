@@ -1,4 +1,4 @@
-import { MonksTokenBar, log, i18n, setting, MTB_MOVEMENT_TYPE } from "./monks-tokenbar.js";
+import { MonksTokenBar, log, i18n, setting } from "./monks-tokenbar.js";
 import { AssignXPApp } from "./apps/assignxp.js";
 import { SavingThrowApp } from "./apps/savingthrow.js";
 import { ContestedRollApp } from "./apps/contestedroll.js";
@@ -7,18 +7,6 @@ import { LootablesApp } from "./apps/lootables.js";
 export class MonksTokenBarAPI {
     static init() {
         game.MonksTokenBar = MonksTokenBarAPI;
-    }
-
-    static changeMovement(movement, tokens) {
-        if (!game.user.isGM)
-            return;
-        if (!MonksTokenBar.isMovement(movement))
-            return;
-
-        if (tokens != undefined) {
-            MonksTokenBar.changeTokenMovement(movement, tokens);
-        }else
-            MonksTokenBar.changeGlobalMovement(movement);
     }
 
     static requestRoll(tokens, options = {}) {
