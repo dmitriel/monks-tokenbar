@@ -61,8 +61,6 @@
 	"MonksTokenBar.stat2-icon.hint": "Muda o ícone do segundo atributo.",
 	"MonksTokenBar.stat2-resource.name": "Recurso do Segundo Atributo",
 	"MonksTokenBar.stat2-resource.hint": "Muda o segundo recurso mostrado",
-	"MonksTokenBar.change-to-combat.name": "Mudar movimento para combate",
-	"MonksTokenBar.change-to-combat.hint": "Muda o movimento para combate quando o combate começa",
 	"MonksTokenBar.assign-loot.name": "Converter inimigos em pilháveis",
 	"MonksTokenBar.assign-loot.hint": "Só funciona com o módulo Loot Sheet. Quando o combate acabar, converte inimigos caídos em pilháveis",
 	"MonksTokenBar.popout-tokenbar.name": "Suporte ao Popout",
