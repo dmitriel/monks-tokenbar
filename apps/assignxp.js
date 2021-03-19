@@ -68,7 +68,7 @@ export class AssignXPApp extends Application {
         return mergeObject(super.defaultOptions, {
             id: "assignexperience",
             title: i18n("MonksTokenBar.AssignXP"),
-            template: "./modules/monks-tokenbar/templates/assignxp.html",
+            template: "./modules/monks-tokenbar-lite/templates/assignxp.html",
             width: 400,
             height: 400,
             popOut: true
@@ -129,7 +129,7 @@ export class AssignXPApp extends Application {
                 reason: $('#assign-xp-reason', this.element).val(), 
                 actors: chatactors
             };
-            const html = await renderTemplate("./modules/monks-tokenbar/templates/assignxpchatmsg.html", requestdata);
+            const html = await renderTemplate("./modules/monks-tokenbar-lite/templates/assignxpchatmsg.html", requestdata);
 
             log('create chat request');
             let chatData = {
@@ -137,7 +137,7 @@ export class AssignXPApp extends Application {
                 content: html
             };
             
-            setProperty(chatData, "flags.monks-tokenbar", requestdata);
+            setProperty(chatData, "flags.monks-tokenbar-lite", requestdata);
             ChatMessage.create(chatData, {});
             this.close();
         } else
@@ -173,7 +173,7 @@ export class AssignXPApp extends Application {
 export class AssignXP {
     static async onAssignXP(actorid, message, e) {
         if (game.user.isGM) {
-            let actors = JSON.parse(JSON.stringify(message.getFlag('monks-tokenbar', 'actors')));
+            let actors = JSON.parse(JSON.stringify(message.getFlag('monks-tokenbar-lite', 'actors')));
             let msgactor = actors.find(a => { return a.id == actorid; });
 
             if (!msgactor.assigned) {
@@ -184,7 +184,7 @@ export class AssignXP {
 
                 msgactor.assigned = true;
             }
-            await message.setFlag('monks-tokenbar', 'actors', actors);
+            await message.setFlag('monks-tokenbar-lite', 'actors', actors);
         } else {
             $(e.target).hide();
             game.socket.emit(
@@ -202,7 +202,7 @@ export class AssignXP {
 
     static async onAssignAllXP(message) {
         if (game.user.isGM) {
-            let actors = message.getFlag('monks-tokenbar', 'actors');
+            let actors = message.getFlag('monks-tokenbar-lite', 'actors');
             for (let i = 0; i < actors.length; i++) {
                 let msgactor = actors[i];
                 if (!msgactor.assigned) {
@@ -214,7 +214,7 @@ export class AssignXP {
 }
 
 Hooks.on("renderChatMessage", (message, html, data) => {
-    const assignCard = html.find(".monks-tokenbar.assignxp");
+    const assignCard = html.find(".monks-tokenbar-lite.assignxp");
     if (assignCard.length !== 0) {
         if (!game.user.isGM)
             html.find(".gm-only").remove();
@@ -223,7 +223,7 @@ Hooks.on("renderChatMessage", (message, html, data) => {
 
         $('.assign-all', html).click($.proxy(AssignXP.onAssignAllXP, AssignXP, message));
 
-        let actors = message.getFlag('monks-tokenbar', 'actors');
+        let actors = message.getFlag('monks-tokenbar-lite', 'actors');
 
         let items = $('.item', html);
         for (let i = 0; i < items.length; i++) {
