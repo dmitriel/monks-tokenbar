@@ -20,7 +20,7 @@ export class LootablesApp extends Application {
         return mergeObject(super.defaultOptions, {
             id: "lootables",
             title: i18n("MonksTokenBar.Lootables"),
-            template: "./modules/monks-tokenbar/templates/lootables.html",
+            template: "./modules/monks-tokenbar-lite/templates/lootables.html",
             width: 400,
             height: 400,
             popOut: true
@@ -100,14 +100,14 @@ export class LootablesApp extends Application {
                     'lootsheetnpc5e': {
                         'lootsheettype': 'Loot'
                     },
-                    'monks-tokenbar': {
+                    'monks-tokenbar-lite': {
                         'converted': true
                     }
                 }
             };
 
             if (token.actor.data?.flags?.core?.sheetClass != 'dnd5e.LootSheet5eNPC')
-                newActorData.flags['monks-tokenbar'].oldsheetClass = token.actor.data?.flags?.core?.sheetClass;
+                newActorData.flags['monks-tokenbar-lite'].oldsheetClass = token.actor.data?.flags?.core?.sheetClass;
 
             // Remove items that shouldn't be lootable
             let oldItems = [];
@@ -136,9 +136,9 @@ export class LootablesApp extends Application {
             newActorData.items = newItems;
             //only store the old items if the there are old items to avoid overwriting a second time
             if (oldItems.length > 0) {
-                if (token.actor.getFlag('monks-tokenbar', 'olditems') != undefined)
-                    oldItems = oldItems.concat(token.actor.getFlag('monks-tokenbar', 'olditems'));
-                newActorData.flags["monks-tokenbar"].olditems = oldItems;
+                if (token.actor.getFlag('monks-tokenbar-lite', 'olditems') != undefined)
+                    oldItems = oldItems.concat(token.actor.getFlag('monks-tokenbar-lite', 'olditems'));
+                newActorData.flags["monks-tokenbar-lite"].olditems = oldItems;
             }
             //await token.actor.update(newActorData);
 
@@ -211,21 +211,21 @@ export class LootablesApp extends Application {
         let actorData = {
             'flags': {
                 'core': {
-                    'sheetClass': (actor.data.flags['monks-tokenbar'].oldsheetClass || null)
+                    'sheetClass': (actor.data.flags['monks-tokenbar-lite'].oldsheetClass || null)
                 },
-                'monks-tokenbar': {
+                'monks-tokenbar-lite': {
                     'converted': false
                 }
             }
         };
 
-        if (actor.getFlag('monks-tokenbar', 'olditems')?.length) {
+        if (actor.getFlag('monks-tokenbar-lite', 'olditems')?.length) {
             actorData.items = duplicate(actor.data.items);
-            for (let olditem of actor.getFlag('monks-tokenbar', 'olditems')) {
+            for (let olditem of actor.getFlag('monks-tokenbar-lite', 'olditems')) {
                 if (actorData.items.findIndex(i => { return i._id == olditem._id; }) < 0)
                     actorData.items.push(olditem);
             }
-            actorData.flags["monks-tokenbar"].olditems = [];
+            actorData.flags["monks-tokenbar-lite"].olditems = [];
         }
 
         actor.update(actorData).then((token) => {
