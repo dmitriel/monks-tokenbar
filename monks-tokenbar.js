@@ -7,18 +7,18 @@ import { LootablesApp } from "./apps/lootables.js";
 import { MonksTokenBarAPI } from "./monks-tokenbar-api.js";
 
 export let debug = (...args) => {
-    if (debugEnabled > 1) console.log("DEBUG: monks-tokenbar | ", ...args);
+    if (debugEnabled > 1) console.log("DEBUG: monks-tokenbar-lite | ", ...args);
 };
-export let log = (...args) => console.log("monks-tokenbar | ", ...args);
+export let log = (...args) => console.log("monks-tokenbar-lite | ", ...args);
 export let warn = (...args) => {
-    if (debugEnabled > 0) console.warn("monks-tokenbar | ", ...args);
+    if (debugEnabled > 0) console.warn("monks-tokenbar-lite | ", ...args);
 };
-export let error = (...args) => console.error("monks-tokenbar | ", ...args);
+export let error = (...args) => console.error("monks-tokenbar-lite | ", ...args);
 export let i18n = key => {
     return game.i18n.localize(key);
 };
 export let setting = key => {
-    return game.settings.get("monks-tokenbar", key);
+    return game.settings.get("monks-tokenbar-lite", key);
 };
 
 export class MonksTokenBar {
@@ -30,7 +30,7 @@ export class MonksTokenBar {
         // element statics
         //CONFIG.debug.hooks = true;
 
-        MonksTokenBar.SOCKET = "module.monks-tokenbar";
+        MonksTokenBar.SOCKET = "module.monks-tokenbar-lite";
 
         registerSettings();
     }
@@ -109,7 +109,7 @@ export class MonksTokenBar {
                 npcSheetNames.forEach((sheetName) => {
                     Hooks.on("render" + sheetName, (app, html, data) => {
                         // only for GMs or the owner of this npc
-                        if (app?.token?.actor?.getFlag('monks-tokenbar', 'converted') && app.element.find(".revert-lootable").length == 0) {
+                        if (app?.token?.actor?.getFlag('monks-tokenbar-lite', 'converted') && app.element.find(".revert-lootable").length == 0) {
                             const link = $('<a class="revert-lootable"><i class="fas fa-backward"></i>Revert Lootable</a>');
                             link.on("click", () => LootablesApp.revertLootable(app));
                             app.element.find(".window-title").after(link);
@@ -167,12 +167,12 @@ export class MonksTokenBar {
         if (game.user.isGM) {
             if (combat.started == true) {
                 let axpa;
-                if (game.settings.get("monks-tokenbar", "show-xp-dialog") && (!["dnd5e", "sw5e"].includes(game.world.system) || !game.settings.get(game.world.system, 'disableExperienceTracking'))) {
+                if (game.settings.get("monks-tokenbar-lite", "show-xp-dialog") && (!["dnd5e", "sw5e"].includes(game.world.system) || !game.settings.get(game.world.system, 'disableExperienceTracking'))) {
                     axpa = new AssignXPApp(combat);
                     await axpa.render(true);
                 }
                 /*
-                if (game.settings.get("monks-tokenbar", "show-xp-dialog") && (game.world.system !== "sw5e" || (game.world.system === "sw5e" && !game.settings.get('sw5e', 'disableExperienceTracking')))) {
+                if (game.settings.get("monks-tokenbar-lite", "show-xp-dialog") && (game.world.system !== "sw5e" || (game.world.system === "sw5e" && !game.settings.get('sw5e', 'disableExperienceTracking')))) {
                     axpa = new AssignXPApp(combat);
                     await axpa.render(true);
                 }*/
@@ -248,10 +248,10 @@ export class MonksTokenBar {
                 roll = { type: (type == 'check' ? 'attribute': type), abilityId: abilityId };
             } else
                 roll = message.getFlag(game.system.id, 'roll');
-            if (roll && MonksTokenBar.grabmessage.getFlag('monks-tokenbar', 'requesttype') == roll.type &&
-                MonksTokenBar.grabmessage.getFlag('monks-tokenbar', 'request') == (roll.skillId || roll.abilityId)) {
+            if (roll && MonksTokenBar.grabmessage.getFlag('monks-tokenbar-lite', 'requesttype') == roll.type &&
+                MonksTokenBar.grabmessage.getFlag('monks-tokenbar-lite', 'request') == (roll.skillId || roll.abilityId)) {
                 let tokenId = message.data.speaker.token;
-                let msgtoken = MonksTokenBar.grabmessage.getFlag('monks-tokenbar', 'token' + tokenId);
+                let msgtoken = MonksTokenBar.grabmessage.getFlag('monks-tokenbar-lite', 'token' + tokenId);
 
                 if (msgtoken != undefined) {
                     let r = Roll.fromJSON(message.data.roll);
@@ -281,7 +281,7 @@ Hooks.on("updateCombat", function (combat, delta) {
     if (game.user.isGM) {
         if (MonksTokenBar.tokenbar) {
             $(MonksTokenBar.tokenbar.tokens).each(function () {
-                this.token.unsetFlag("monks-tokenbar", "nofified");
+                this.token.unsetFlag("monks-tokenbar-lite", "nofified");
             });
         }
     }
