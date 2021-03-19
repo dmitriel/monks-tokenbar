@@ -1,4 +1,4 @@
-import { MonksTokenBar, log, error, i18n, setting, MTB_MOVEMENT_TYPE } from "../monks-tokenbar.js";
+import { MonksTokenBar, log, error, i18n, setting } from "../monks-tokenbar.js";
 import { SavingThrowApp } from "../apps/savingthrow.js";
 import { ContestedRollApp } from "../apps/contestedroll.js";
 import { AssignXPApp } from "../apps/assignxp.js";
