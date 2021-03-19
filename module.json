@@ -39,7 +39,7 @@
 	"styles": [ "css/tokenbar.css" ],
 	"packs": [],
 	"url": "https://github.com/dmitriel/monks-tokenbar",
-	"download": "https://github.com/dmitriel/monks-tokenbar/archive/1.0.28.zip",
+	"download": "https://github.com/dmitriel/monks-tokenbar/archive/1.0.28l.zip",
 	"manifest": "https://github.com/dmitriel/monks-tokenbar/releases/latest/download/module.json",
 	"bugs": "https://github.com/dmitriel/monks-tokenbar/issues",
 	"allowBugReporter": true,
