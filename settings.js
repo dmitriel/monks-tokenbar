@@ -1494,15 +1494,6 @@ export const registerSettings = function () {
 	let dividexp = true;
 	if (game.world.system == 'pf2e')
 		dividexp = false;
-	
-	game.settings.register(modulename, "notify-on-change", {
-		name: game.i18n.localize("MonksTokenBar.notify-on-change.name"),
-		hint: game.i18n.localize("MonksTokenBar.notify-on-change.hint"),
-		scope: "world",
-		config: true,
-		default: true,
-		type: Boolean,
-	});
 
 	game.settings.register(modulename, "show-xp-dialog", {
 		name: game.i18n.localize("MonksTokenBar.show-xp-dialog.name"),
@@ -1538,14 +1529,6 @@ export const registerSettings = function () {
 		default: "token",
 		type: String,
 		choices: imageoptions,
-	});
-	game.settings.register(modulename, "change-to-combat", {
-		name: game.i18n.localize("MonksTokenBar.change-to-combat.name"),
-		hint: game.i18n.localize("MonksTokenBar.change-to-combat.hint"),
-		scope: "world",
-		config: true,
-		default: true,
-		type: Boolean
 	});
 	game.settings.register(modulename, "assign-loot", {
 		name: game.i18n.localize("MonksTokenBar.assign-loot.name"),
