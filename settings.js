@@ -2,7 +2,7 @@ import { ResetPosition } from "./apps/resetposition.js";
 
 export const registerSettings = function () {
     // Register any custom module settings here
-	let modulename = "monks-tokenbar";
+	let modulename = "monks-tokenbar-lite";
 
 	let imageoptions = {
 		'token': game.i18n.localize("MonksTokenBar.token-pictures.token"),
