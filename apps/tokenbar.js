@@ -21,8 +21,6 @@ export class TokenBar extends Application {
             */
         this._hover = null;
 
-        //MonksTokenBar.changeGlobalMovement("free");
-
         Hooks.on('canvasReady', () => {
             this.refresh();
         });
@@ -59,7 +57,6 @@ export class TokenBar extends Application {
         let pos = this.getPos();
         return {
             tokens: this.tokens,
-            movement: setting("movement"),
             stat1icon: setting("stat1-icon"),
             stat2icon: setting("stat2-icon"),
             cssClass: css,
@@ -164,7 +161,6 @@ export class TokenBar extends Application {
             token: token,
             img: img,
             thumb: thumb?.thumb || thumb,
-            movement: token.getFlag("monks-tokenbar", "movement"),
             stat1: stat1,
             stat2: stat2,
             statClass: (stat1 == undefined && stat2 == undefined ? 'hidden' : ''),
@@ -241,9 +237,6 @@ export class TokenBar extends Application {
             diff.thumb = (thumb?.thumb || thumb);
 
         }
-        if (tkn.movement != tkn.token.getFlag('monks-tokenbar', 'movement')) {
-            diff.movement = tkn.token.getFlag('monks-tokenbar', 'movement');
-        }
 
         if (Object.keys(diff).length > 0) {
             log('preUpdateTokenBarToken', tkn, diff);
@@ -314,7 +307,6 @@ export class TokenBar extends Application {
             html.find(".request-roll").click(this._onRequestRoll.bind(this));
             html.find(".contested-roll").click(this._onContestedRoll.bind(this));
             html.find(".assign-xp").click(this._onAssignXP.bind(this));
-            html.find(".token-movement").click(this._onChangeMovement.bind(this));
         }
         html.find(".token").click(this._onClickToken.bind(this)).dblclick(this._onDblClickToken.bind(this)).hover(this._onHoverToken.bind(this));
 
@@ -459,50 +451,8 @@ export class TokenBar extends Application {
                     const targeted = !entry.token.isTargeted;
                     entry.token.setTarget(targeted, { releaseOthers: false });
                 }
-            },
-            {
-                name: "MonksTokenBar.FreeMovement",
-                icon: '<i class="fas fa-running" data-movement="free"></i>',
-                condition: game.user.isGM,
-                callback: li => {
-                    let entry = this.getEntry(li[0].dataset.tokenId);
-                    MonksTokenBar.changeTokenMovement(MTB_MOVEMENT_TYPE.FREE, entry.token);
-                }
-            },
-            {
-                name: "MonksTokenBar.NoMovement",
-                icon: '<i class="fas fa-street-view" data-movement="none"></i>',
-                condition: game.user.isGM,
-                callback: li => {
-                    let entry = this.getEntry(li[0].dataset.tokenId);
-                    MonksTokenBar.changeTokenMovement(MTB_MOVEMENT_TYPE.NONE, entry.token);
-                }
-            },
-            {
-                name: "MonksTokenBar.CombatTurn",
-                icon: '<i class="fas fa-fist-raised" data-movement="combat"></i>',
-                condition: game.user.isGM,
-                callback: li => {
-                    let entry = this.getEntry(li[0].dataset.tokenId);
-                    MonksTokenBar.changeTokenMovement(MTB_MOVEMENT_TYPE.COMBAT, entry.token);
-                }
             }
         ]);
-
-        let oldRender = context.render;
-        context.render = function (target) {
-            let result = oldRender.call(this, target);
-
-            //Highlight the current movement if different from the global
-            const entry = MonksTokenBar?.tokenbar.tokens.find(t => t.id === target[0].dataset.tokenId);
-            let movement = entry?.token.getFlag("monks-tokenbar", "movement");
-            let html = $("#context-menu");
-            if (movement != undefined) {
-                $('i[data-movement="' + movement + '"]', html).parent().addClass('selected');
-            }
-
-            return result;
-        };
     }
 
     getEntry(id) {
@@ -525,13 +475,6 @@ export class TokenBar extends Application {
         event.preventDefault();
 
         new AssignXPApp().render(true);
-    }
-
-    async _onChangeMovement(event) {
-        event.preventDefault();
-
-        const btn = event.currentTarget;
-        MonksTokenBar.changeGlobalMovement(btn.dataset.movement);
     }
 
     /* -------------------------------------------- */
